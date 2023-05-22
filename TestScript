@@ -1,0 +1,100 @@
+package dark.dark.phlox;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.io.FileHandler;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
+
+public class DarkPhlox {
+WebDriver driver;
+@BeforeSuite
+public void LaunchingBrowser () {
+System.setProperty("Webdriver.chrome.driver", "C:\\Users\\rajku\\eclipse-workspace\\ProjectDarkPhlox\\Driver\\chromedriver.exe");
+ChromeOptions options = new ChromeOptions();
+options.addArguments("--remote-allow-origins=*");
+driver = new ChromeDriver(options);
+driver.get("https://darkphlox.com/");
+driver.manage().window().maximize();
+ }
+/* @Test(priority=1,description="New User Registration is initiated in this method")
+public void NewUserRegister() throws InterruptedException {
+WebElement newRegisterbtn = driver.findElement(By.xpath("//a[@class='hdicon site-settings']"));  
+newRegisterbtn.click();
+WebElement registerNowbtn = driver.findElement(By.xpath("//*[@id=\"settingsBox\"]/div/p[2]/a"));
+registerNowbtn.click();
+}
+@Test(priority=2,description="New User signUp is completed successfully")
+public void enterUserdetails() throws InterruptedException {
+WebElement firstName = driver.findElement(By.xpath("//input[@id='FirstName']"));
+firstName.sendKeys("Sai");
+Thread.sleep(1000);
+WebElement lastName = driver.findElement(By.id("LastName"));
+lastName.sendKeys("Krasath");
+Thread.sleep(1000);
+WebElement emailEnter = driver.findElement(By.xpath("//input[@id='RegisterForm-email']"));
+emailEnter.sendKeys("sai.krasath6673@gmail.com");
+Thread.sleep(1000);
+WebElement passWord = driver.findElement(By.xpath("//input[@name='customer[password]']"));
+passWord.sendKeys("S#ikrasath998");
+WebElement submitbtn = driver.findElement(By.xpath("//input[@value='Submit']"));
+submitbtn.click();
+} */
+@Test (priority=1)
+public void userLogin() throws InterruptedException {
+JavascriptExecutor UserLogin = (JavascriptExecutor)driver;
+WebElement loginIcon = driver.findElement(By.xpath("//a[@class='hdicon site-settings']"));
+UserLogin.executeScript("arguments[0].click()", loginIcon);
+WebElement loginButton = driver.findElement(By.xpath("(//a[text()='LOGIN'])[1]"));
+UserLogin.executeScript("arguments[0].click()", loginButton);
+Thread.sleep(1790);
+WebElement enterEmail = driver.findElement(By.id("CustomerEmail"));
+UserLogin.executeScript("arguments[0].setAttribute('value','sai.krasath6673@gmail.com')",enterEmail);
+Thread.sleep(2420);
+WebElement enterPassword = driver.findElement(By.id("CustomerPassword"));
+Thread.sleep(2856);
+UserLogin.executeScript("arguments[0].setAttribute('value','S#ikrasath998')", enterPassword);
+WebElement signinButton = driver.findElement(By.xpath("//input[@value='Sign In']"));
+Thread.sleep(1154);
+UserLogin.executeScript("arguments[0].click()",signinButton);
+}
+@SuppressWarnings("deprecation")
+@Test(priority=2)
+public void productSelection() {
+driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS); //Struck
+WebElement homeButton = driver.findElement(By.xpath("//a[text()='Home']"));
+homeButton.click();
+WebElement menBtn = driver.findElement(By.xpath("(//a[@href='/collections/men'])[2]"));
+menBtn.click();
+WebElement xxxTentacion = driver.findElement(By.xpath("(//a[@class='grid-view-item__title'])[3]"));
+xxxTentacion.click();
+}
+@Test(priority=3)
+public void shirtSizeselect() {
+WebElement sizeSelect = driver.findElement(By.xpath("//label[text()='M']"));
+sizeSelect.click();
+WebElement addTocart = driver.findElement(By.id("AddToCart-template--14221829800014__product"));
+addTocart.click();
+}
+@Test(priority=4)
+public void addToCartView() {
+WebElement addToCarrtView = driver.findElement(By.id("inlinecheckout-cart"));
+addToCarrtView.click();
+}
+@Test(priority=5)
+public void takeScreenshot() throws IOException {
+File screenshotAs = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+File dest = new File("./viewCartScreenshot/viewCart.png");
+FileHandler.copy(screenshotAs, dest);
+}
+}
