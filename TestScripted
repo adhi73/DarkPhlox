@@ -27,14 +27,14 @@ driver = new ChromeDriver(options);
 driver.get("https://darkphlox.com/");
 driver.manage().window().maximize();
  }
-/* @Test(priority=1,description="New User Registration is initiated in this method")
+@Test(priority=1,description="New User Registration is initiated in this method",enabled=false)
 public void NewUserRegister() throws InterruptedException {
 WebElement newRegisterbtn = driver.findElement(By.xpath("//a[@class='hdicon site-settings']"));  
 newRegisterbtn.click();
 WebElement registerNowbtn = driver.findElement(By.xpath("//*[@id=\"settingsBox\"]/div/p[2]/a"));
 registerNowbtn.click();
 }
-@Test(priority=2,description="New User signUp is completed successfully")
+@Test(priority=2,description="New User signUp is completed successfully",enabled=false)
 public void enterUserdetails() throws InterruptedException {
 WebElement firstName = driver.findElement(By.xpath("//input[@id='FirstName']"));
 firstName.sendKeys("Sai");
